@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocalPlayerController : MonoBehaviour
 {
-    [SerializeField] float _playerSpeed = 10f;
+    [SerializeField] PlayerPref playerPref;
     Rigidbody rigidbody;
 
     private const float radianToDegree = 57.29f;
@@ -25,7 +25,7 @@ public class LocalPlayerController : MonoBehaviour
     void FixedUpdate()
     {
         transform.rotation = Quaternion.Euler(new Vector3 (0,_mouseAngle,0));
-        transform.Translate(Vector3.forward*Time.deltaTime * _playerSpeed);
+        transform.Translate(Vector3.forward*Time.deltaTime * playerPref.speed);
     }
 
     private float GetMouseAngle(Vector3 mousePos)
