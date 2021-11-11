@@ -15,6 +15,7 @@ namespace Snake.Tail
         {
             temp = Instantiate(_tail, _head.transform.position, Quaternion.identity);
             temp.GetComponent<TailFollowAbstract>().nextObject = _head;
+            Destroy(temp.GetComponent<Collider>());
             for (int i = 0; i < _snakeLenght - 1; i++)
             {
                 _nextObject = Instantiate(_tail, temp.transform.position, Quaternion.identity);

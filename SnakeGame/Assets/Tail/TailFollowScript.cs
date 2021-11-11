@@ -10,10 +10,9 @@ namespace Snake.Tail
         // Update is called once per frame
         void FixedUpdate()
         {
-            _distance = Vector3.Distance(this.transform.position, nextObject.transform.position);
-            _distance = _distance > 1 ? _distance : 1;
-            transform.position += (Vector3.forward * Time.deltaTime * tailPref.Speed * _distance);
+            _distance = Vector3.Distance(nextObject.transform.position, this.transform.position);
 
+            this.transform.position = Vector3.Lerp(transform.position, nextObject.transform.position, tailPref.FollowDistance/10);
             transform.LookAt(nextObject.transform);
         }
     }

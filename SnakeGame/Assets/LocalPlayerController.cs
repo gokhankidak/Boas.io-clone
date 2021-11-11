@@ -25,7 +25,7 @@ public class LocalPlayerController : MonoBehaviour
     void FixedUpdate()
     {
         transform.rotation = Quaternion.Euler(new Vector3 (0,_mouseAngle,0));
-        transform.Translate(Vector3.forward*Time.deltaTime * playerPref.speed);
+        transform.Translate(Vector3.forward*Time.smoothDeltaTime * playerPref.speed);
     }
 
     private float GetMouseAngle(Vector3 mousePos)
