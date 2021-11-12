@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2721500042069537232}
   - component: {fileID: 2721500042069537234}
   - component: {fileID: 1203774452993012202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextObject: {fileID: 0}
   tailPref: {fileID: 11400000, guid: fa8d8fc1b7c5e4a4bafa3bccb2d2c418, type: 2}
+  number: 0
 --- !u!65 &1203774452993012202
 BoxCollider:
   m_ObjectHideFlags: 0

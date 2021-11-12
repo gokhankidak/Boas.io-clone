@@ -9,28 +9,22 @@ namespace Snake.Tail
 
         [SerializeField] Material _material;
         private GameObject _nextPart;
-
+      
         private void OnTriggerEnter(Collider other)
         {
-            int _indexCounter = 1;
+            int _indexCounter=0;
 
-            _nextPart = other.gameObject.GetComponent<TailFollowScript>().nextObject;
-
-            while (_nextPart.name !="PlayerHead")
-            {
-                _nextPart = other.gameObject.GetComponent<TailFollowScript>().nextObject;
-                _indexCounter++;
-            }
-
+            if(other.gameObject.GetComponent<TailFollowScript>() != null)
+                _indexCounter = other.gameObject.GetComponent<TailFollowScript>().number;
+            if (_indexCounter < 5)
+                return;
 
 
             Vector3[] vertices = new Vector3[_indexCounter];
             Vector2[] uv = new Vector2[_indexCounter];
-            int[] triangles = new int[_indexCounter*3];
+            int[] triangles = new int[((int)(_indexCounter/3))*9-6];
 
             _nextPart = null;
-
-
 
 
             for (int i = 0; i < vertices.Length; i++)
@@ -50,7 +44,7 @@ namespace Snake.Tail
                     vertices[i] = _nextPart.transform.position;
                 }
             }
-           
+
 
             uv[0] = new Vector2(0, 1);
             uv[1] = new Vector2(1, 1);
@@ -74,6 +68,8 @@ namespace Snake.Tail
             GameObject gameObject = new GameObject("LocalPlayerMesh", typeof(MeshFilter), typeof(MeshRenderer));
 
             gameObject.AddComponent<MeshCollider>();
+            gameObject.AddComponent<DestroyAfterSecs>();
+            gameObject.layer = LayerMask.NameToLayer("Destroyer");
             gameObject.GetComponent<MeshFilter>().mesh = mesh;
             gameObject.GetComponent<MeshCollider>().sharedMesh = null;
             gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;

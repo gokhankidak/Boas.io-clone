@@ -21,6 +21,7 @@ namespace Snake.Tail
                 _nextObject = Instantiate(_tail, temp.transform.position, Quaternion.identity);
                 _nextObject.GetComponent<TailFollowAbstract>().nextObject = temp;
                 temp = _nextObject;
+                temp.GetComponent<TailFollowScript>().number = i+1;
             }
         }
     }

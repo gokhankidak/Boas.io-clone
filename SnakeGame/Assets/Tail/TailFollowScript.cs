@@ -7,6 +7,7 @@ namespace Snake.Tail
     public class TailFollowScript : TailFollowAbstract
     {
         private float _distance = 0;
+        public int number = 0;
         // Update is called once per frame
         void FixedUpdate()
         {
