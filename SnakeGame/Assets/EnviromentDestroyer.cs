@@ -10,7 +10,9 @@ public class EnviromentDestroyer : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Destroyer"))
         {
             Debug.Log("Destroyed");
-            Destroy(gameObject);
+            Destroy(gameObject.GetComponent<Collider>());
+
+            Destroy(gameObject,1f);
         }
 
     }
