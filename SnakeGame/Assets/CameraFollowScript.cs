@@ -8,7 +8,7 @@ public class CameraFollowScript : MonoBehaviour
 
     [SerializeField] Vector3 offset;
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         transform.position = _player.transform.position + offset;
     }

@@ -6,15 +6,42 @@ namespace Snake.Tail
 {
     public class TailFollowScript : TailFollowAbstract
     {
-        private float _distance = 0;
         public int number = 0;
-        // Update is called once per frame
-        void FixedUpdate()
-        {
-            _distance = Vector3.Distance(nextObject.transform.position, this.transform.position);
+        //private float _reachTime = 0.02f;
+        //private Vector3 _currentTarget;
+        //// Update is called once per frame
 
-            this.transform.position = Vector3.Lerp(transform.position, nextObject.transform.position, tailPref.FollowDistance/10);
-            transform.LookAt(nextObject.transform);
-        }
+        //private void Start()
+        //{
+        //    _currentTarget = nextObject.transform.position;
+        //}
+
+        //void Update()
+        //{
+        //    //if (positions.Count == 0)
+
+        //}
+        //void FixedUpdate()
+        //{
+        //    if (Vector3.Distance(transform.position, _currentTarget) != 0)
+        //    {
+        //        if (positions.Count > 0)
+        //        {
+        //            _currentTarget = positions.Pop();
+        //            transform.position = Vector3.Lerp(transform.position, _currentTarget, _reachTime);
+        //            transform.LookAt(nextObject.transform);
+        //        }
+        //        else
+        //        {
+        //            if (nextObject.GetComponent<TailFollowScript>() != null)
+        //            {
+        //                positions = nextObject.GetComponent<TailFollowScript>().positions;
+        //            }
+        //            positions.Push(nextObject.transform.position);
+        //        }
+        //    }
+        //    else
+        //        _currentTarget = nextObject.transform.position;
+        //}
     }
 }

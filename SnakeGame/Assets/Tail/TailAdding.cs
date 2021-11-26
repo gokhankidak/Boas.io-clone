@@ -8,21 +8,39 @@ namespace Snake.Tail
     {
         [SerializeField] GameObject _tail;
         [SerializeField] GameObject _head;
-        GameObject _nextObject, temp;
+        GameObject temp;
         [SerializeField] int _snakeLenght = 10;
+        [SerializeField] float _reachTime = 0.05f;
+        List<GameObject> _tailsList = new List<GameObject>();
 
-        private void Start()
+        private void Awake()
         {
-            temp = Instantiate(_tail, _head.transform.position, Quaternion.identity);
-            temp.GetComponent<TailFollowAbstract>().nextObject = _head;
-            Destroy(temp.GetComponent<Collider>());
+            _tailsList.Add(_head);
             for (int i = 0; i < _snakeLenght - 1; i++)
             {
-                _nextObject = Instantiate(_tail, temp.transform.position, Quaternion.identity);
-                _nextObject.GetComponent<TailFollowAbstract>().nextObject = temp;
-                temp = _nextObject;
-                temp.GetComponent<TailFollowScript>().number = i+1;
+                temp = Instantiate(_tail, _head.transform.position, Quaternion.identity);
+                _tailsList.Add(temp);
             }
         }
+
+        private void FixedUpdate()
+        {
+            float _time = Time.deltaTime / _reachTime;
+            for (int i = 1; i < _tailsList.Count; i++)
+            {
+                StartCoroutine(FollowDelay(_reachTime, i));
+            }
+        }
+
+        IEnumerator FollowDelay(float _time,int i)
+        {
+            yield return new WaitForSeconds(_time);
+
+            MarkerManager markerM = _tailsList[i - 1].GetComponent<MarkerManager>();
+            _tailsList[i].transform.position = Vector3.Lerp(_tailsList[i].transform.position, markerM.markerList[0].position, _time);
+            _tailsList[i].transform.rotation = markerM.markerList[0].rotation;
+            markerM.markerList.RemoveAt(0);
+        }
+
     }
 }
