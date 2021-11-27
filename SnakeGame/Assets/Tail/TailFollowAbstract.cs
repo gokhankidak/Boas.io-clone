@@ -8,6 +8,5 @@ namespace Snake.Tail
     {
         public Stack<Vector3> positions = new Stack<Vector3>(); 
         public GameObject nextObject;
-        public TailPref tailPref;
     }
 }

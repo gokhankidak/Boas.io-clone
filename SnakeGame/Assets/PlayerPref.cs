@@ -5,5 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="PlayerData", menuName = "ObjectPref/PlayerPref")]
 public class PlayerPref : ScriptableObject
 {
-    public float speed = 10;
+    [SerializeField]private float speed = 4;
+
+    public float Scale { get => speed/8;}
+    public float Speed { get => speed; set => speed= value; }
 }

@@ -19,13 +19,16 @@ public class LocalPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         _mouseAngle = GetMouseAngle(Input.mousePosition);
     }
 
     void FixedUpdate()
     {
+        transform.localScale = new Vector3(playerPref.Scale, playerPref.Scale, playerPref.Scale);
+        transform.position = new Vector3(transform.position.x,playerPref.Scale / 2, transform.position.z);
         transform.rotation = Quaternion.Euler(new Vector3 (0,_mouseAngle,0));
-        transform.Translate(Vector3.forward*Time.smoothDeltaTime * playerPref.speed);
+        transform.Translate(Vector3.forward*Time.deltaTime * playerPref.Speed);
     }
 
     private float GetMouseAngle(Vector3 mousePos)
