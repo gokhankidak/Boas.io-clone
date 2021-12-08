@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DestroyAfterSecs : MonoBehaviour
 {
-    [SerializeField] int _destroyAfterMSeconds = 1;
+    [SerializeField] float _destroyAfterMSeconds = .5f;
     void Awake()
     {
         StartCoroutine(SelfDestruct(_destroyAfterMSeconds));
     }
 
-    IEnumerator SelfDestruct(int seconds)
+    IEnumerator SelfDestruct(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);

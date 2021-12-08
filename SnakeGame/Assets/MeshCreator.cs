@@ -8,62 +8,54 @@ namespace Snake.Tail
     {
 
         [SerializeField] Material _material;
-        private GameObject _nextPart;
-      
+
         private void OnTriggerEnter(Collider other)
         {
-            int _indexCounter=0;
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
 
-            if(other.gameObject.GetComponent<TailFollowScript>() != null)
-                _indexCounter = other.gameObject.GetComponent<TailFollowScript>().number;
-            if (_indexCounter < 5)
-                return;
+            int _tailIndex = other.gameObject.GetComponent<TailIndex>().tailIndex;
 
 
-            Vector3[] vertices = new Vector3[_indexCounter];
-            Vector2[] uv = new Vector2[_indexCounter];
-            int[] triangles = new int[((int)(_indexCounter/3))*9-6];
-
-            _nextPart = null;
+            Vector2[] newUV = new Vector2[_tailIndex];
+            bool isClockWise = true;
 
 
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                if (_nextPart == null)
-                {
-                    vertices[i] = other.gameObject.GetComponent<TailFollowScript>().nextObject.transform.position;
-                    _nextPart = other.gameObject.GetComponent<TailFollowScript>().nextObject;
-                }
-                else if (_nextPart.name == "PlayerHead")
-                {
-                    break;
-                }
-                else
-                {
-                    _nextPart = _nextPart.GetComponent<TailFollowScript>().nextObject;
-                    vertices[i] = _nextPart.transform.position;
-                }
-            }
-
-
-            uv[0] = new Vector2(0, 1);
-            uv[1] = new Vector2(1, 1);
-            uv[2] = new Vector2(0, 0);
-            uv[3] = new Vector2(1, 0);
-
-            for (int i = 0; i * 3 + 2 < triangles.Length; i++)
-            {
-                triangles[i * 3] = 0;
-                triangles[i * 3 + 1] = i + 1;
-                triangles[i * 3 + 2] = i + 2;
-            }
-
-
+            List<Triangle> _tempTriangles = new List<Triangle>();
             Mesh mesh = new Mesh();
 
-            mesh.vertices = vertices;
-            mesh.uv = uv;
-            mesh.triangles = triangles;
+            if (_tailIndex > 5)
+            {
+                List<GameObject> temp = new List<GameObject>();
+
+                //indexe kadar olan objeleri göndermek için
+                for (int i = 0; i < _tailIndex; i++)
+                {
+                    temp.Add(TailAdding.tailsList[i]);
+                }
+
+                //eklenen tail objelerinin olduðu liste gönderiliyor
+                _tempTriangles = Triangulate.TriangulateConcavePolygon(temp);
+            }
+            else return;
+
+            int[] _triangles = new int[(_tailIndex - 2) * 3];
+            Vector3[] newVertices = new Vector3[_tempTriangles.Count * 3 + 3];
+
+            for (int i = 0; i < _tempTriangles.Count; i++)
+            {
+                newVertices[i * 3] = _tempTriangles[i].v1.position;
+                newVertices[i * 3 + 1] = _tempTriangles[i].v2.position;
+                newVertices[i * 3 + 2] = _tempTriangles[i].v3.position;
+            }
+
+            for (int i = 0; i < _triangles.Length; i++)
+            {
+                _triangles[i] = i;
+            }
+
+
+            mesh.vertices = newVertices;
+            mesh.triangles = _triangles;
 
             GameObject gameObject = new GameObject("LocalPlayerMesh", typeof(MeshFilter), typeof(MeshRenderer));
 

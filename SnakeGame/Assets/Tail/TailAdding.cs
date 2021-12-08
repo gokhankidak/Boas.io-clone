@@ -13,7 +13,10 @@ namespace Snake.Tail
         [SerializeField] int _snakeLenght = 10;
         [SerializeField] float _followDistance = 0.6f;
         [SerializeField] float _startingDelay = 0.05f;
-        List<GameObject> _tailsList = new List<GameObject>();
+        static List<GameObject> _tailsList = new List<GameObject>();
+
+        public static List<GameObject> tailsList { get=>_tailsList; }
+
         bool _isActive = false;
 
         private void Awake()
@@ -22,6 +25,7 @@ namespace Snake.Tail
             for (int i = 0; i < _snakeLenght - 1; i++)
             {
                 temp = Instantiate(_tail, _head.transform.position, Quaternion.identity);
+                temp.GetComponent<TailIndex>().tailIndex = i;
                 _tailsList.Add(temp);
             }
             //wait some for fill the marker
