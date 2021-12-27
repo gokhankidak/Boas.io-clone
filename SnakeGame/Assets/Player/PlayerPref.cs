@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerPref : ScriptableObject
 {
     [SerializeField]private float speed = 4;
-
     public float Scale { get => speed/8;}
     public float Speed { get => speed; set => speed= value; }
 }

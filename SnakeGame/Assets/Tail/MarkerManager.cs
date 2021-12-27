@@ -28,10 +28,5 @@ public class MarkerManager : MonoBehaviour
     {
         markerList.Add(new Marker(transform.position, transform.rotation));
     }
-
-    //public void ClearMarkerList()
-    //{
-    //    markerList.Clear();
-    //    markerList.Add(new Marker(transform.position, transform.rotation));
-    //}
 }
+

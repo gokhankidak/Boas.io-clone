@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Triangle
 {
     //Corners
@@ -28,9 +29,7 @@ public class Triangle
     public void ChangeOrientation()
     {
         Vertex temp = this.v1;
-
         this.v1 = this.v2;
-
         this.v2 = temp;
     }
 }
